@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Picositas: Las gomitas con chile que despertarán tus sentidos. Descubre nuestra variedad de sabores picantes y naturales.">
+    <title>¡Picositas! - Gomitas con Chile</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-color: #FF4136;
+            --secondary-color: #2ECC40;
+            --background-color: #FFFAF0;
+            --text-color: #333;
+            --accent-color: #FF851B;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 65, 54, 0.95);
+            padding: 1rem;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-links {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 8em 1em 4em;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-color) 20%, transparent 20%),
+                        radial-gradient(circle, var(--accent-color) 20%, transparent 20%);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            transform: rotate(45deg);
+            opacity: 0.1;
+            z-index: 1;
+            animation: backgroundMove 30s linear infinite;
+        }
+        
+        @keyframes backgroundMove {
+            0% { background-position: 0 0, 25px 25px; }
+            100% { background-position: 500px 500px, 525px 525px; }
+        }
+        
+        h1 {
+            font-size: 4em;
+            margin-bottom: 0.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+            animation: titleEntrance 1s ease-out;
+        }
+
+        @keyframes titleEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        header p {
+            font-size: 1.4em;
+            position: relative;
+            z-index: 2;
+            animation: subtitleEntrance 1s ease-out 0.3s backwards;
+        }
+
+        @keyframes subtitleEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3em 2em;
+        }
+        
+        .product-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4em;
+            background-color: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-info:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-text {
+            flex: 1 1 300px;
+            padding: 3em;
+        }
+        
+        .product-image {
+            flex: 1 1 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-image:hover img {
+            transform: scale(1.1);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 0.8em;
+            font-size: 2.4em;
+        }
+        
+        .spice-level {
+            display: flex;
+            align-items: center;
+            margin: 2em 0;
+            gap: 0.5em;
+        }
+        
+        .spice-meter {
+            display: flex;
+            gap: 0.2em;
+        }
+        
+        .spice-meter input[type="radio"] {
+            display: none;
+        }
+        
+        .spice-meter label {
+            cursor: pointer;
+            font-size: 1.5em;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+        
+        .spice-meter input[type="radio"]:checked ~ label {
+            opacity: 0.3;
+        }
+        
+        .spice-meter label:hover,
+        .spice-meter label:hover ~ label,
+        .spice-meter input[type="radio"]:checked + label {
+            opacity: 1;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2em;
+            margin-top: 2em;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            aspect-ratio: 1;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2em 1em;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1em 2em;
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-top: 2em;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(46, 204, 64, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 204, 64, 0.6);
+            background-color: #27AE60;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .cta-button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        #back-to-top:hover {
+            transform: translateY(-5px) rotate(360deg);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2em;
+            margin-top: 3em;
+        }
+        
+        @media (max-width: 768px) {
+            .product-info {
+                flex-direction: column-reverse;
+            }
+            
+            .product-text,
+            .product-image {
+                flex: 1 1 100%;
+            }
+            
+            h1 {
+                font-size: 2.8em;
+            }
+            
+            h2 {
+                font-size: 2em;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#productos">Productos</a>
+            <a href="#galeria">Galería</a>
+            <a href="Chat.html">Contacto</a>
+        </div>
+    </nav>
+
+    <header id="inicio">
+        <h1>Spice Explosion</h1>
+        <p>El placer picante de lo dulce</p>
+    </header>
+    
+    <main class="container">
+        <section id="productos" class="product-info">
+            <div class="product-text">
+                <h2>Descubre el sabor explosivo</h2>
+                <p>Nuestras Picositas son la combinación perfecta entre lo dulce y lo picante. Hechas con los mejores ingredientes y un toque de chile especial, estas gomitas te llevarán a una aventura de sabor única.</p>
+                
+                <div class="spice-level">
+                    <span>Nivel de picor:</span>
+                    <div class="spice-meter">
+                        <input type="radio" name="spice" id="spice1" checked>
+                        <label for="spice1">🌶️</label>
+                        <input type="radio" name="spice" id="spice2">
+                        <label for="spice2">🌶️</label>
+                        <input type="radio" name="spice" id="spice3">
+                        <label for="spice3">🌶️</label>
+                        <input type="radio" name="spice" id="spice4">
+                        <label for="spice4">🌶️</label>
+                        <input type="radio" name="spice" id="spice5">
+                        <label for="spice5">🌶️</label>
+                    </div>
+                </div>
+
+                <ul>
+                    <li>100% naturales</li>
+                    <li>Sin conservantes</li>
+                    <li>Variedad de formas y sabores</li>
+                    <li>Picor personalizable</li>
+                </ul>
+                <a href="Compras.html" class="cta-button">¡Compra ahora!</a>
+            </div>
+            <div class="product-image">
+                <img src="imagen como tipo logo.jpg" alt="Gomitas Picositas" width="350" height="235">
+            </div>
+        </section>
+        
+        <section id="galeria">
+            <h2>Galería de sabores</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="FRUTITASENCHILADASKB.webp" alt="Picositas de mango">
+                    <div class="gallery-overlay">
+                        <h3>Mango Enchilado</h3>
+                        <p>Dulzura tropical con un toque picante</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="31bdde046180e3c8c5f50decab0c4590.jpg" alt="Picositas de sandía">
+                    <div class="gallery-overlay">
+                        <h3>Sandía Explosiva</h3>
+                        <p>Frescura que pica</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagen de emprendedor.avif" alt="Picositas de tamarindo">
+                    <div class="gallery-overlay">
+                        <h3>Tamarindo Picante</h3>
+                        <p>El clásico sabor mexicano</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a href="#inicio" id="back-to-top">↑</a>
+
+    <footer id="contacto">
+        <p>&copy; 2024 Spice Explosion. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
